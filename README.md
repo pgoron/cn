@@ -23,25 +23,13 @@ Also, keep in mind that the CLI is just for convenience, and the primary use cas
 ## Build
 
 You can build `cn` by using `make`.
-Be sure `dep` is installed:
-
-```
-$ go get github.com/golang/dep/cmd/dep
-```
-
-Then, add `~/go/bin` to your `$PATH`:
-
-```
-$ export PATH=$PATH:~/go/bin
-```
 
 Build `cn`:
 
 ```
 $ make
 rm -f cn cn &>/dev/null || true
-dep ensure
-GOOS=linux GOARCH=amd64 go build -i -ldflags="-X main.version=cea247c-dirty -X main.tag=devel -X main.branch=guits-doc_build" -o cn-devel-cea247c-dirty-linux-amd64 main.go
+GOOS=linux GOARCH=amd64 go build -ldflags="-X main.version=cea247c-dirty -X main.tag=devel -X main.branch=guits-doc_build" -o cn-devel-cea247c-dirty-linux-amd64 main.go
 ln -sf "cn-devel-cea247c-dirty-linux-amd64" cn
 ```
 

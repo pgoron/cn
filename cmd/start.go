@@ -23,6 +23,7 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"runtime"
@@ -184,10 +185,10 @@ func runContainer(cmd *cobra.Command, args []string) {
 			}
 			envs = append(envs, "OSD_PATH="+getUnderlyingStorage(flavor))
 			volumeBindings = append(volumeBindings, getUnderlyingStorage(flavor)+":"+getUnderlyingStorage(flavor))
-			if runtime.GOOS == "linux"  {
+			if runtime.GOOS == "linux" {
 				// Add z option while bindmounting directory so that docker can modify SeLinux labels if SeLinux is Enforced.
-				volumeBindings[len(volumeBindings)-1] +=  ":z"
-			} 
+				volumeBindings[len(volumeBindings)-1] += ":z"
+			}
 
 			// Did someone specify a particular size for cn data store in this directory?
 			if len(getSize(flavor)) != 0 {
@@ -195,7 +196,7 @@ func runContainer(cmd *cobra.Command, args []string) {
 				if sizeBluestoreBlockToBytes == 0 {
 					log.Fatal("Wrong unit passed: ", getSize(flavor), ". Please refer to https://en.wikipedia.org/wiki/Byte.")
 				}
-				envs = append(envs, "BLUESTORE_BLOCK_SIZE="+string(sizeBluestoreBlockToBytes))
+				envs = append(envs, fmt.Sprintf("BLUESTORE_BLOCK_SIZE=%d", sizeBluestoreBlockToBytes))
 			}
 		}
 		if testDev == "blockdev" {
@@ -288,7 +289,7 @@ func runContainer(cmd *cobra.Command, args []string) {
 
 	log.Printf("Running cluster %s | image %s | flavor %s {%s Memory, %d CPU} ...", containerNameToShow, getImageName(), flavor, getMemorySize(flavor), ressources.NanoCPUs)
 
-	resp, err := getDocker().ContainerCreate(ctx, config, hostConfig, nil, containerName)
+	resp, err := getDocker().ContainerCreate(ctx, config, hostConfig, nil, nil, containerName)
 	if err != nil {
 		log.Fatal(err)
 	}

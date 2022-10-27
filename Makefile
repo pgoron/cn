@@ -9,8 +9,11 @@ GOOS:=linux
 GOARCH:=amd64
 CN_EXTENSION:=
 
+# Set GOPATH
+GOPATH := $(shell go env GOPATH)
+
 build: check clean prepare
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -i -ldflags="-X main.version=$(VERSION)" -o cn-$(VERSION)-$(GOOS)-$(GOARCH)$(CN_EXTENSION) main.go
+	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags="-X main.version=$(VERSION)" -o cn-$(VERSION)-$(GOOS)-$(GOARCH)$(CN_EXTENSION) main.go
 	ln -sf "cn-$(VERSION)-$(GOOS)-$(GOARCH)$(CN_EXTENSION)" cn$(CN_EXTENSION)
 
 check:
@@ -18,14 +21,9 @@ ifeq ("$(GOPATH)","")
 	@echo "GOPATH variable must be defined"
 	@exit 1
 endif
-ifneq ("$(shell pwd)","$(GOPATH)/src/github.com/ceph/cn")
-	@echo "You are in $(shell pwd) !"
-	@echo "Please go in $(GOPATH)/src/github.com/ceph/cn to build"
-	@exit 1
-endif
+
 
 prepare:
-	dep ensure
 	unset GOOS; unset GOARCH; cd cmd; go test -timeout 1m -count 5
 
 darwin:
