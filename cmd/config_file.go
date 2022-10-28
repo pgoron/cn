@@ -37,7 +37,7 @@ const FLAVORS = "flavors"
 const IMAGES = "images"
 
 // DEFAULTIMAGE is the default image name to be used
-const DEFAULTIMAGE = "ceph/daemon"
+const DEFAULTIMAGE = "quay.io/ceph/daemon"
 
 // LATESTIMAGE is the prefix for the latest ceph images
 const LATESTIMAGE = DEFAULTIMAGE + ":latest-"
