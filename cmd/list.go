@@ -27,8 +27,8 @@ import (
 	"log"
 	"regexp"
 
-	"github.com/apcera/termtables"
 	"github.com/docker/docker/api/types"
+	"github.com/scylladb/termtables"
 	"github.com/spf13/cobra"
 )
 

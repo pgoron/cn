@@ -4,12 +4,12 @@ go 1.18
 
 require (
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137
-	github.com/apcera/termtables v0.0.0-20170405184538-bcbc5dc54055
 	github.com/docker/docker v20.10.21+incompatible
 	github.com/docker/go-connections v0.4.0
 	github.com/elgs/gojq v0.0.0-20201120033525-b5293fef2759
 	github.com/jmoiron/jsonq v0.0.0-20150511023944-e874b168d07e
 	github.com/mitchellh/go-homedir v1.1.0
+	github.com/scylladb/termtables v0.0.0-20191203121021-c4c0b6d42ff4
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.13.0
 	github.com/stretchr/testify v1.8.1
